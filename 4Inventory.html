@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventory Management - AutoCare Rodriguez</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="bg-gray-50">
+    <nav class="bg-gray-800 text-white px-6 py-4">
+        <div class="flex items-center justify-between">
+            <h1 class="text-2xl font-bold">AutoCare Rodriguez</h1>
+            <div class="flex space-x-4">
+                <a href="1Clients.html">
+                    <button class="px-4 py-2 rounded hover:bg-gray-700">Clients</button>
+                </a>                  
+                <a href="2Dates.html"><button class="px-4 py-2 rounded hover:bg-gray-700">Appointments</button></a>
+                <a href="3.1SegService.html"><button class="px-4 py-2 rounded hover:bg-gray-700">SegService</button></a>
+                <a href="4Inventory.html"><button class="px-4 py-2 rounded hover:bg-gray-700">Inventory</button></a>
+                <a href="5Billing.html"><button class="px-4 py-2 rounded hover:bg-gray-700">Billing</button></a>
+                <a href="7Users.html">
+                    <button class="px-4 py-2 rounded hover:bg-gray-700">Users</button>
+                </a>
+
+            </div>
+        </div>
+    </nav>
+    
+    <nav class="bg-gray-800 text-white px-6 py-4">
+        <div class="flex items-center justify-between">
+            
+            <div class="flex items-center space-x-4">
+                <select id="roleSwitch" class="bg-gray-700 px-4 py-2 rounded">
+                    <option value="admin">Admin View</option>
+                    <option value="mechanic">Mechanic View</option>
+                </select>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mx-auto px-4 py-6">
+        <div class="flex space-x-4 mb-6">
+            <input type="text" placeholder="Search parts..." class="flex-1 px-4 py-2 border rounded-lg">
+            <select class="px-4 py-2 border rounded-lg">
+                <option>All Categories</option>
+                <option>Engine</option>
+                <option>Brakes</option>
+                <option>Tires</option>
+            </select>
+            <button class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700">Search</button>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+            <div class="bg-white rounded-lg shadow p-6">
+                <h3 class="text-lg font-semibold mb-2">Total Parts</h3>
+                <p class="text-3xl font-bold text-blue-600">1,234</p>
+            </div>
+            <div class="bg-white rounded-lg shadow p-6">
+                <h3 class="text-lg font-semibold mb-2">Low Stock Items</h3>
+                <p class="text-3xl font-bold text-yellow-600">45</p>
+            </div>
+            <div class="bg-white rounded-lg shadow p-6">
+                <h3 class="text-lg font-semibold mb-2">Out of Stock</h3>
+                <p class="text-3xl font-bold text-red-600">12</p>
+            </div>
+            <div class="bg-white rounded-lg shadow p-6">
+                <h3 class="text-lg font-semibold mb-2">Value</h3>
+                <p class="text-3xl font-bold text-green-600">$45,678</p>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <div class="lg:col-span-2 bg-white rounded-lg shadow">
+                <div class="p-6">
+                    <div class="flex justify-between items-center mb-4">
+                        <h2 class="text-2xl font-semibold">Inventory List</h2>
+                        <button onclick="showAddPartModal()" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">Add New Part</button>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Part Name</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Category</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Stock</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Status</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-200">
+                                <tr class="hover:bg-gray-50">
+                                    <td class="px-6 py-4">Oil Filter</td>
+                                    <td class="px-6 py-4">Engine</td>
+                                    <td class="px-6 py-4">45</td>
+                                    <td class="px-6 py-4">
+                                        <span class="px-2 py-1 bg-green-100 text-green-800 rounded-full">In Stock</span>
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <button class="text-blue-600 hover:text-blue-800">Update</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="space-y-6">
+                <div class="bg-white rounded-lg shadow p-6">
+                    <h2 class="text-xl font-semibold mb-4">Quick Actions</h2>
+                    <div class="space-y-4">
+                        <button onclick="showRequestPartModal()" class="w-full bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">Request Part</button>
+                        <button onclick="showReportIssueModal()" class="w-full bg-yellow-600 text-white px-4 py-2 rounded-lg hover:bg-yellow-700">Report Issue</button>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-lg shadow p-6">
+                    <h2 class="text-xl font-semibold mb-4">Recent Activities</h2>
+                    <div class="space-y-4">
+                        <div class="border-l-4 border-blue-600 pl-4">
+                            <p class="font-medium">New Stock Added</p>
+                            <p class="text-sm text-gray-600">Brake Pads x20</p>
+                            <p class="text-xs text-gray-400">2 hours ago</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="addPartModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+        <div class="bg-white rounded-lg p-8 max-w-md w-full">
+            <h3 class="text-xl font-semibold mb-4">Add New Part</h3>
+            <form class="space-y-4">
+                <div>
+                    <label class="block text-sm font-medium mb-2">Part Name</label>
+                    <input type="text" class="w-full px-4 py-2 border rounded-lg">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium mb-2">Category</label>
+                    <select class="w-full px-4 py-2 border rounded-lg">
+                        <option>Engine</option>
+                        <option>Brakes</option>
+                        <option>Tires</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium mb-2">Quantity</label>
+                    <input type="number" class="w-full px-4 py-2 border rounded-lg">
+                </div>
+                <div class="flex justify-end space-x-4">
+                    <button type="button" onclick="hideAddPartModal()" class="px-4 py-2 border rounded-lg hover:bg-gray-100">Cancel</button>
+                    <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">Add Part</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function showAddPartModal() {
+            document.getElementById('addPartModal').classList.remove('hidden');
+        }
+
+        function hideAddPartModal() {
+            document.getElementById('addPartModal').classList.add('hidden');
+        }
+    </script>
+
+    <footer class="bg-gray-800 text-white py-6 px-6 mt-8">
+        <div class="container mx-auto text-center">
+            <p>&copy; 2024 AutoCare Pro. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>

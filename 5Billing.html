@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Billing & Invoicing - AutoCare Rodriguez</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="bg-gray-50">
+    <nav class="bg-gray-800 text-white px-6 py-4">
+        <div class="flex items-center justify-between">
+            <h1 class="text-2xl font-bold">AutoCare Rodriguez</h1>
+            <div class="flex space-x-4">
+                <a href="1Clients.html">
+                    <button class="px-4 py-2 rounded hover:bg-gray-700">Clients</button>
+                </a>                  
+                <a href="2Dates.html"><button class="px-4 py-2 rounded hover:bg-gray-700">Appointments</button></a>
+                <a href="3.1SegService.html"><button class="px-4 py-2 rounded hover:bg-gray-700">SegService</button></a>
+                <a href="4Inventory.html"><button class="px-4 py-2 rounded hover:bg-gray-700">Inventory</button></a>
+                <a href="5Billing.html"><button class="px-4 py-2 rounded hover:bg-gray-700">Billing</button></a>
+                <a href="7Users.html">
+                    <button class="px-4 py-2 rounded hover:bg-gray-700">Users</button>
+                </a>
+
+            </div>
+        </div>
+    </nav>
+    
+    <nav class="bg-gray-800 text-white px-6 py-4">
+        <div class="flex items-center justify-between">
+        
+            <div class="flex items-center space-x-4">
+                <select id="viewSwitch" class="bg-gray-700 px-4 py-2 rounded" onchange="toggleView()">
+                    <option value="admin">Administrator View</option>
+                    <option value="customer">Client View</option>
+                </select>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Admin View -->
+    <div id="adminView" class="container mx-auto px-4 py-6">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+            <div class="bg-white rounded-lg shadow p-6">
+                <h3 class="text-lg font-semibold mb-2">Total Invoices</h3>
+                <p class="text-3xl font-bold text-blue-600">245</p>
+            </div>
+            <div class="bg-white rounded-lg shadow p-6">
+                <h3 class="text-lg font-semibold mb-2">Pending Payment</h3>
+                <p class="text-3xl font-bold text-yellow-600">18</p>
+            </div>
+            <div class="bg-white rounded-lg shadow p-6">
+                <h3 class="text-lg font-semibold mb-2">Overdue</h3>
+                <p class="text-3xl font-bold text-red-600">5</p>
+            </div>
+            <div class="bg-white rounded-lg shadow p-6">
+                <h3 class="text-lg font-semibold mb-2">Revenue</h3>
+                <p class="text-3xl font-bold text-green-600">$12,450</p>
+            </div>
+        </div>
+
+        <div class="flex space-x-4 mb-6">
+            <input type="text" placeholder="Search invoices..." class="flex-1 px-4 py-2 border rounded-lg">
+            <select class="px-4 py-2 border rounded-lg">
+                <option>All Status</option>
+                <option>Paid</option>
+                <option>Pending</option>
+                <option>Overdue</option>
+            </select>
+            <button onclick="showNewInvoiceModal()" class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700">New Invoice</button>
+        </div>
+
+        <div class="bg-white rounded-lg shadow overflow-hidden">
+            <table class="w-full">
+                <thead class="bg-gray-50">
+                    <tr>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Invoice #</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Customer</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Date</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Amount</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Status</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Actions</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-200">
+                    <tr class="hover:bg-gray-50">
+                        <td class="px-6 py-4">#INV-001</td>
+                        <td class="px-6 py-4">John Doe</td>
+                        <td class="px-6 py-4">2024-01-15</td>
+                        <td class="px-6 py-4">$350.00</td>
+                        <td class="px-6 py-4">
+                            <span class="px-2 py-1 bg-green-100 text-green-800 rounded-full">Paid</span>
+                        </td>
+                        <td class="px-6 py-4">
+                            <button class="text-blue-600 hover:text-blue-800 mr-2">View</button>
+                            <button class="text-gray-600 hover:text-gray-800">Email</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Customer View -->
+    <div id="customerView" class="container mx-auto px-4 py-6 hidden">
+        <div class="bg-white rounded-lg shadow p-6 mb-6">
+            <h2 class="text-xl font-semibold mb-4">Your Invoices</h2>
+            <div class="overflow-x-auto">
+                <table class="w-full">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Invoice #</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Service</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Date</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Amount</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Status</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-200">
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-6 py-4">#INV-001</td>
+                            <td class="px-6 py-4">Oil Change</td>
+                            <td class="px-6 py-4">2024-01-15</td>
+                            <td class="px-6 py-4">$350.00</td>
+                            <td class="px-6 py-4">
+                                <span class="px-2 py-1 bg-yellow-100 text-yellow-800 rounded-full">Pending</span>
+                            </td>
+                            <td class="px-6 py-4">
+                                <button onclick="showPaymentModal()" class="text-blue-600 hover:text-blue-800 mr-2">Pay Now</button>
+                                <button class="text-gray-600 hover:text-gray-800">Download</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- New Invoice Modal -->
+    <div id="newInvoiceModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+        <div class="bg-white rounded-lg p-8 max-w-2xl w-full">
+            <h3 class="text-xl font-semibold mb-4">Generate New Invoice</h3>
+            <form class="space-y-4">
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-medium mb-2">Customer</label>
+                        <select class="w-full px-4 py-2 border rounded-lg">
+                            <option>Select Customer</option>
+                            <option>John Doe</option>
+                            <option>Jane Smith</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium mb-2">Vehicle</label>
+                        <select class="w-full px-4 py-2 border rounded-lg">
+                            <option>Select Vehicle</option>
+                            <option>Toyota Camry (ABC123)</option>
+                            <option>Honda Civic (XYZ789)</option>
+                        </select>
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium mb-2">Services</label>
+                    <div class="space-y-2">
+                        <div class="flex items-center space-x-2">
+                            <input type="checkbox" class="form-checkbox">
+                            <span>Oil Change ($50)</span>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <input type="checkbox" class="form-checkbox">
+                            <span>Brake Service ($150)</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-medium mb-2">Discount (%)</label>
+                        <input type="number" class="w-full px-4 py-2 border rounded-lg">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium mb-2">Tax Rate (%)</label>
+                        <input type="number" class="w-full px-4 py-2 border rounded-lg">
+                    </div>
+                </div>
+                <div class="border-t pt-4">
+                    <div class="flex justify-between text-lg font-semibold">
+                        <span>Total Amount:</span>
+                        <span>$200.00</span>
+                    </div>
+                </div>
+                <div class="flex justify-end space-x-4">
+                    <button type="button" onclick="hideNewInvoiceModal()" class="px-4 py-2 border rounded-lg hover:bg-gray-100">Cancel</button>
+                    <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">Generate Invoice</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Payment Modal -->
+    <div id="paymentModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+        <div class="bg-white rounded-lg p-8 max-w-md w-full">
+            <h3 class="text-xl font-semibold mb-4">Make Payment</h3>
+            <form class="space-y-4">
+                <div>
+                    <label class="block text-sm font-medium mb-2">Payment Method</label>
+                    <select class="w-full px-4 py-2 border rounded-lg">
+                        <option>Credit Card</option>
+                        <option>PayPal</option>
+                        <option>Bank Transfer</option>
+                    </select>
+                </div>
+                <div class="border-t pt-4">
+                    <div class="flex justify-between text-lg font-semibold">
+                        <span>Amount to Pay:</span>
+                        <span>$350.00</span>
+                    </div>
+                </div>
+                <div class="flex justify-end space-x-4">
+                    <button type="button" onclick="hidePaymentModal()" class="px-4 py-2 border rounded-lg hover:bg-gray-100">Cancel</button>
+                    <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">Pay Now</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function toggleView() {
+            const view = document.getElementById('viewSwitch').value;
+            document.getElementById('adminView').classList.toggle('hidden', view !== 'admin');
+            document.getElementById('customerView').classList.toggle('hidden', view !== 'customer');
+        }
+
+        function showNewInvoiceModal() {
+            document.getElementById('newInvoiceModal').classList.remove('hidden');
+        }
+
+        function hideNewInvoiceModal() {
+            document.getElementById('newInvoiceModal').classList.add('hidden');
+        }
+
+        function showPaymentModal() {
+            document.getElementById('paymentModal').classList.remove('hidden');
+        }
+
+        function hidePaymentModal() {
+            document.getElementById('paymentModal').classList.add('hidden');
+        }
+    </script>
+
+    <footer class="bg-gray-800 text-white py-6 px-6 mt-8">
+        <div class="container mx-auto text-center">
+            <p>&copy; 2024 AutoCare Pro. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>

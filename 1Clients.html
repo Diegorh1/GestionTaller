@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auto Workshop Management</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-50">
+    <nav class="bg-gray-800 text-white px-6 py-4">
+        <div class="flex items-center justify-between">
+            <h1 class="text-2xl font-bold">AutoCare Rodriguez</h1>
+            <div class="flex space-x-4">
+                <a href="1Clients.html">
+                    <button class="px-4 py-2 rounded hover:bg-gray-700">Clients</button>
+                </a>                  
+                <a href="2Dates.html"><button class="px-4 py-2 rounded hover:bg-gray-700">Appointments</button></a>
+                <a href="3.1SegService.html""><button class="px-4 py-2 rounded hover:bg-gray-700">SegService</button></a>
+                <a href="4Inventory.html"><button class="px-4 py-2 rounded hover:bg-gray-700">Inventory</button></a>
+                <a href="5Billing.html"><button class="px-4 py-2 rounded hover:bg-gray-700">Billing</button></a>
+                <a href="7Users.html">
+                    <button class="px-4 py-2 rounded hover:bg-gray-700">Users</button>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container mx-auto px-4 py-8">
+        <div class="flex justify-between items-center mb-6">
+            <h2 class="text-3xl font-semibold text-gray-800">Client Management</h2>
+            <button class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors" onclick="document.getElementById('addClientModal').classList.remove('hidden')">Add New Client</button>
+        </div>
+
+        <div class="bg-white rounded-lg shadow p-6 mb-8">
+            <div class="flex flex-col md:flex-row gap-4 mb-6">
+                <input type="text" placeholder="Search clients..." class="flex-1 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                <select class="px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                    <option value="">All Brands</option>
+                    <option value="">All Brands</option>
+                    <option value="toyota">Toyota</option>
+                    <option value="honda">Honda</option>
+                    <option value="ford">Ford</option>
+                    <option value="chevrolet">Chevrolet</option>
+                    <option value="nissan">Nissan</option>
+                    <option value="bmw">BMW</option>
+                    <option value="mercedes-benz">Mercedes-Benz</option>
+                    <option value="audi">Audi</option>
+                    <option value="volkswagen">Volkswagen</option>
+                    <option value="hyundai">Hyundai</option>
+                    <option value="kia">Kia</option>
+                    <option value="mazda">Mazda</option>
+                    <option value="subaru">Subaru</option>
+                    <option value="tesla">Tesla</option>
+                    <option value="jeep">Jeep</option>
+                    <option value="ram">Ram</option>
+                    <option value="dodge">Dodge</option>
+                    <option value="gmc">GMC</option>
+                    <option value="cadillac">Cadillac</option>
+                    <option value="porsche">Porsche</option>
+                    <option value="jaguar">Jaguar</option>
+                    <option value="land-rover">Land Rover</option>
+                    <option value="volvo">Volvo</option>
+                    <option value="mitsubishi">Mitsubishi</option>
+                    <option value="fiat">Fiat</option>
+                    <option value="peugeot">Peugeot</option>
+                    <option value="renault">Renault</option>
+                    <option value="lincoln">Lincoln</option>
+                    <option value="acura">Acura</option>
+                    <option value="infiniti">Infiniti</option>
+                    <option value="alfa-romeo">Alfa Romeo</option>
+                    <option value="mini">Mini</option>
+                    <option value="buick">Buick</option>
+                    <option value="chrysler">Chrysler</option>
+                    <option value="citroen">Citroën</option>
+                    <option value="ferrari">Ferrari</option>
+                    <option value="lamborghini">Lamborghini</option>
+                    <option value="maserati">Maserati</option>
+                    <option value="bentley">Bentley</option>
+                    <option value="rolls-royce">Rolls-Royce</option>
+                    <option value="aston-martin">Aston Martin</option>
+                    <option value="bugatti">Bugatti</option>
+                    <option value="lotus">Lotus</option>
+                    <option value="mcLaren">McLaren</option>
+                    <option value="opel">Opel</option>
+                    <option value="skoda">Škoda</option>
+                    <option value="seat">SEAT</option>
+                    
+
+                </select>
+                <button class="px-6 py-2 bg-gray-200 rounded-lg hover:bg-gray-300 transition-colors">Clear</button>
+            </div>
+
+            <div class="overflow-x-auto">
+                <table class="w-full">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Client Name</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Vehicle Details</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Contact</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-200">
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-6 py-4">John Doe</td>
+                            <td class="px-6 py-4">Toyota Camry 2020</td>
+                            <td class="px-6 py-4">john@example.com</td>
+                            <td class="px-6 py-4">
+                                <button class="text-blue-600 hover:text-blue-800 mr-3">Edit</button>
+                                <button class="text-red-600 hover:text-red-800">Delete</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Add Client Modal -->
+        <div id="addClientModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+            <div class="bg-white rounded-lg p-8 max-w-2xl w-full">
+                <div class="flex justify-between items-center mb-6">
+                    <h3 class="text-2xl font-semibold">Add New Client</h3>
+                    <button onclick="document.getElementById('addClientModal').classList.add('hidden')" class="text-gray-500 hover:text-gray-700">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                    </button>
+                </div>
+
+                <form class="space-y-6">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
+                        <input type="text" required class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                        <input type="email" required class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Phone</label>
+                        <input type="tel" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Vehicle Brand</label>
+                        <select class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                            <option value="">All Brands</option>
+                            <option value="toyota">Toyota</option>
+                            <option value="honda">Honda</option>
+                            <option value="ford">Ford</option>
+                            <option value="chevrolet">Chevrolet</option>
+                            <option value="nissan">Nissan</option>
+                            <option value="bmw">BMW</option>
+                            <option value="mercedes-benz">Mercedes-Benz</option>
+                            <option value="audi">Audi</option>
+                            <option value="volkswagen">Volkswagen</option>
+                            <option value="hyundai">Hyundai</option>
+                            <option value="kia">Kia</option>
+                            <option value="mazda">Mazda</option>
+                            <option value="subaru">Subaru</option>
+                            <option value="tesla">Tesla</option>
+                            <option value="jeep">Jeep</option>
+                            <option value="ram">Ram</option>
+                            <option value="dodge">Dodge</option>
+                            <option value="gmc">GMC</option>
+                            <option value="cadillac">Cadillac</option>
+                            <option value="porsche">Porsche</option>
+                            <option value="jaguar">Jaguar</option>
+                            <option value="land-rover">Land Rover</option>
+                            <option value="volvo">Volvo</option>
+                            <option value="mitsubishi">Mitsubishi</option>
+                            <option value="fiat">Fiat</option>
+                            <option value="peugeot">Peugeot</option>
+                            <option value="renault">Renault</option>
+                            <option value="lincoln">Lincoln</option>
+                            <option value="acura">Acura</option>
+                            <option value="infiniti">Infiniti</option>
+                            <option value="alfa-romeo">Alfa Romeo</option>
+                            <option value="mini">Mini</option>
+                            <option value="buick">Buick</option>
+                            <option value="chrysler">Chrysler</option>
+                            <option value="citroen">Citroën</option>
+                            <option value="ferrari">Ferrari</option>
+                            <option value="lamborghini">Lamborghini</option>
+                            <option value="maserati">Maserati</option>
+                            <option value="bentley">Bentley</option>
+                            <option value="rolls-royce">Rolls-Royce</option>
+                            <option value="aston-martin">Aston Martin</option>
+                            <option value="bugatti">Bugatti</option>
+                            <option value="lotus">Lotus</option>
+                            <option value="mcLaren">McLaren</option>
+                            <option value="opel">Opel</option>
+                            <option value="skoda">Škoda</option>
+                            <option value="seat">SEAT</option>
+
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">License Plate</label>
+                        <input type="text" required class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                    </div>
+                    <div class="flex justify-end space-x-4">
+                        <button type="button" onclick="document.getElementById('addClientModal').classList.add('hidden')" class="px-6 py-2 border rounded-lg hover:bg-gray-100">Cancel</button>
+                        <button type="submit" class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-gray-800 text-white py-6 px-6 mt-8">
+        <div class="container mx-auto text-center">
+            <p>&copy; 2025 AutoCare Rodriguez. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>

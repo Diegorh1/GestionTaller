@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auto Workshop Management</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-50">
+    <nav class="bg-gray-800 text-white px-6 py-4">
+        <div class="flex items-center justify-between">
+            <h1 class="text-2xl font-bold">AutoCare Rodriguez</h1>
+            <div class="flex items-center space-x-4">
+                <select id="roleSelector" class="px-4 py-2 bg-gray-700 rounded text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <option value="client">Cliente</option>
+                    <option value="mechanic">Mecánico</option>
+                    <option value="admin">Administrador</option>
+                </select>
+                <div class="flex space-x-4">
+                    <a href="1Clients.html">
+                        <button class="px-4 py-2 rounded hover:bg-gray-700">Clients</button>
+                    </a>                  
+                    <a href="2Dates.html"><button class="px-4 py-2 rounded hover:bg-gray-700">Appointments</button></a>
+                    <a href="3.1SegService.html"><button class="px-4 py-2 rounded hover:bg-gray-700">SegService</button></a>
+                    <a href="4Inventory.html"><button class="px-4 py-2 rounded hover:bg-gray-700">Inventory</button></a>
+                    <a href="5Billing.html"><button class="px-4 py-2 rounded hover:bg-gray-700">Billing</button></a>
+                    <a href="7Users.html">
+                        <button class="px-4 py-2 rounded hover:bg-gray-700">Users</button>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container mx-auto px-4 py-8">
+        <div class="mb-8 visible-all-roles">
+            <h2 class="text-2xl font-semibold text-gray-800 mb-4">Service History</h2>
+            <div class="bg-white rounded-lg shadow p-6">
+                <table class="w-full">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Date</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Service</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-6 py-4">2024-02-19</td>
+                            <td class="px-6 py-4">Oil Change</td>
+                            <td class="px-6 py-4"><span class="px-2 py-1 bg-green-100 text-green-800 rounded-full">Completed</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div id="partsManagement" class="hidden mechanic-admin-only mb-8">
+            <h2 class="text-2xl font-semibold text-gray-800 mb-4">Parts Management</h2>
+            <div class="bg-white rounded-lg shadow p-6">
+                <div class="flex justify-between mb-4">
+                    <input type="text" placeholder="Search parts..." class="px-4 py-2 border rounded-lg">
+                    <button class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">Add New Part</button>
+                </div>
+                <table class="w-full">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Part Name</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Stock</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Price</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-6 py-4">Oil Filter</td>
+                            <td class="px-6 py-4">45</td>
+                            <td class="px-6 py-4">$15.99</td>
+                            <td class="px-6 py-4">
+                                <button class="text-blue-600 hover:text-blue-800 mr-3">Edit</button>
+                                <button class="text-red-600 hover:text-red-800">Delete</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div id="appointmentManagement" class="hidden mechanic-admin-only">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-3xl font-semibold text-gray-800">Appointment Management</h2>
+                <button class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors" onclick="document.getElementById('scheduleModal').classList.remove('hidden')">Schedule Appointment</button>
+            </div>
+
+            <div class="overflow-x-auto">
+                <table class="w-full">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date & Time</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Client</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Service</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Vehicle</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-200">
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-6 py-4">2024-02-20 10:00 AM</td>
+                            <td class="px-6 py-4">John Doe</td>
+                            <td class="px-6 py-4">Oil Change</td>
+                            <td class="px-6 py-4">Toyota Camry 2020</td>
+                            <td class="px-6 py-4"><span class="px-2 py-1 bg-green-100 text-green-800 rounded-full">Confirmed</span></td>
+                            <td class="px-6 py-4">
+                                <button class="text-blue-600 hover:text-blue-800 mr-3" onclick="document.getElementById('editModal').classList.remove('hidden')">Edit</button>
+                                <button class="text-red-600 hover:text-red-800" onclick="document.getElementById('cancelModal').classList.remove('hidden')">Cancel</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div id="scheduleModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+            <div class="bg-white rounded-lg p-8 max-w-2xl w-full">
+                <div class="flex justify-between items-center mb-6">
+                    <h3 class="text-2xl font-semibold">Schedule Appointment</h3>
+                    <button onclick="document.getElementById('scheduleModal').classList.add('hidden')" class="text-gray-500 hover:text-gray-700">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                    </button>
+                </div>
+
+                <form class="space-y-6">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Appointment Date</label>
+                        <input type="date" required class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Appointment Time</label>
+                        <input type="time" required class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Vehicle</label>
+                        <select class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                            <option value="toyota_camry">Toyota Camry 2020</option>
+                            <option value="honda_civic">Honda Civic 2019</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Service Type</label>
+                        <select class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                            <option value="oil_change">Oil Change</option>
+                            <option value="tire_rotation">Tire Rotation</option>
+                            <option value="brake_service">Brake Service</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Comments</label>
+                        <textarea class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" rows="3"></textarea>
+                    </div>
+                    <div class="flex justify-end space-x-4">
+                        <button type="button" onclick="document.getElementById('scheduleModal').classList.add('hidden')" class="px-6 py-2 border rounded-lg hover:bg-gray-100">Cancel</button>
+                        <button type="submit" class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">Schedule</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div id="cancelModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+            <div class="bg-white rounded-lg p-8 max-w-md w-full">
+                <h3 class="text-xl font-semibold mb-4">Cancel Appointment</h3>
+                <p class="mb-6">Are you sure you want to cancel this appointment?</p>
+                <div class="flex justify-end space-x-4">
+                    <button onclick="document.getElementById('cancelModal').classList.add('hidden')" class="px-4 py-2 border rounded-lg hover:bg-gray-100">No, Keep It</button>
+                    <button class="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700">Yes, Cancel</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="editModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+            <div class="bg-white rounded-lg p-8 max-w-2xl w-full">
+                <div class="flex justify-between items-center mb-6">
+                    <h3 class="text-2xl font-semibold">Edit Appointment</h3>
+                    <button onclick="document.getElementById('editModal').classList.add('hidden')" class="text-gray-500 hover:text-gray-700">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                    </button>
+                </div>
+                <form class="space-y-6">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">New Date</label>
+                        <input type="date" value="2024-02-20" required class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">New Time</label>
+                        <input type="time" value="10:00" required class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Service Type</label>
+                        <select class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                            <option value="oil_change" selected>Oil Change</option>
+                            <option value="tire_rotation">Tire Rotation</option>
+                            <option value="brake_service">Brake Service</option>
+                        </select>
+                    </div>
+                    <div class="flex justify-end space-x-4">
+                        <button type="button" onclick="document.getElementById('editModal').classList.add('hidden')" class="px-6 py-2 border rounded-lg hover:bg-gray-100">Cancel</button>
+                        <button type="submit" class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">Update</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        const roleSelector = document.getElementById('roleSelector');
+        const partsManagement = document.getElementById('partsManagement');
+        const appointmentManagement = document.getElementById('appointmentManagement');
+
+        roleSelector.addEventListener('change', function() {
+            const selectedRole = this.value;
+            
+            partsManagement.classList.add('hidden');
+            appointmentManagement.classList.add('hidden');
+
+            if (selectedRole === 'mechanic' || selectedRole === 'admin') {
+                partsManagement.classList.remove('hidden');
+                appointmentManagement.classList.remove('hidden');
+            }
+        });
+
+        window.addEventListener('DOMContentLoaded', () => {
+            roleSelector.dispatchEvent(new Event('change'));
+        });
+    </script>
+
+    <footer class="bg-gray-800 text-white py-6 px-6 mt-8">
+        <div class="container mx-auto text-center">
+            <p>&copy; 2024 AutoCare Pro. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
